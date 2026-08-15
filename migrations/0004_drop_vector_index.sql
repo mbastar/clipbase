@@ -1,0 +1,22 @@
+-- Remove the ANN vector index added in 0003. Measured on the real corpus
+-- (6125 vectors, 768 dims) against remote Turso, it lost on every axis:
+--
+--   writes  a single UPDATE touching the indexed column took 91s, and even a
+--           write that did not touch it took 31s; without the index, 256ms.
+--           A backfill was impossible with the index present.
+--   reads   vector_top_k ran 7.5-10s versus 15s for a plain scan — the same
+--           order of magnitude, not the win an index is supposed to buy.
+--   recall  being approximate, it returned worse neighbours than the exact
+--           scan (0.67 against 0.766 for the true nearest on a sample query).
+--
+-- The bottleneck was never the arithmetic. The identical scan over the
+-- identical data takes 6ms on a local libSQL file and 15s on remote Turso, so
+-- the cost is round-tripping, which no index can remove. Semantic search reads
+-- through an embedded replica instead (src/db.ts), where an exact scan is ~10ms
+-- and needs no index at all. Turso's own vector guide likewise documents linear
+-- scan rather than an index.
+--
+-- Revisit if the corpus grows by an order of magnitude: an exact scan is linear,
+-- so ~60k chunks would put a local scan near 100ms and make ANN worth its costs.
+
+DROP INDEX IF EXISTS chunks_embedding_idx;

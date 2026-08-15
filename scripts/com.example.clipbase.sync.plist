@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  The nightly catch-up. Every absolute path below is a placeholder — launchd
+  resolves no ~ and no $HOME, so replace YOUR-USERNAME and the repo path with
+  your own, and rename the label (and this file) out of com.example while you
+  are at it. Then install with:
+
+      cp scripts/com.example.clipbase.sync.plist ~/Library/LaunchAgents/
+      launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.example.clipbase.sync.plist
+
+  Runs local, not cloud, and that is not incidental: defuddle fetches directly
+  and a laptop's residential IP extracts where a datacenter one gets walled.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.clipbase.sync</string>
+
+    <!-- The launcher, not the script directly: install-bin.sh regenerates it
+         and pins a non-fnm node, so a node upgrade doesn't strand this job. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/YOUR-USERNAME/.local/bin/clipbase-sync</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/YOUR-USERNAME/path/to/clipbase</string>
+
+    <!-- 05:00, offset against whatever upstream triage feeds your tracked
+         collections — sync advances a cursor over Raindrop's `created` field
+         and never looks back, so it must run after new bookmarks are filed.
+         Asleep at 05:00 is fine: launchd runs a missed calendar job on wake. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>5</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Deliberately false. This job spends on enrich and embed; loading the
+         plist must not be the same act as firing a paid run. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/YOUR-USERNAME/Library/Logs/clipbase-sync.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/YOUR-USERNAME/Library/Logs/clipbase-sync.log</string>
+
+    <!-- launchd gives no shell profile and no version-manager hook. `defuddle`
+         and `firecrawl` are npm globals under a specific node version, and
+         extract/web.ts resolves them off PATH with execFile, so omitting this
+         entry does not error — it fails every extraction quietly. Pin the
+         node-version path explicitly (the fnm-shaped example below);
+         weekly-sync.sh's preflight refuses to run if an upgrade ever moves it,
+         which turns a silent corpus degradation into exit 127 in the log
+         above. No secrets here: clipbase reads .env from WorkingDirectory. -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/Users/YOUR-USERNAME/.local/share/fnm/node-versions/v24.13.0/installation/bin:/Users/YOUR-USERNAME/.local/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>

@@ -1,0 +1,5 @@
+{
+  "maxItemId": 487,
+  "pooledAt": "2026-08-05T13:13:00Z",
+  "why": "487 is the pool's high-water id, and it is an id rather than a count: the corpus holds 485 items across ids 1..487, because `items.id` is a rowid alias and two ids are missing after deletes. Pinning to 485 would have looked right and quietly left gold at 486 and 487 above the ceiling, which eval rejects on load. eval-repool ran over ids 1..487, so that is the depth actually judged, and the highest gold id in queries.jsonl is 487. Items 488+ have never been looked at, and an unjudged item does not merely score 0 — it takes a rank slot from an answer, so every metric measured over a corpus grown past the ceiling is a floor. pooledAt is when the re-pool was built; it sits after the newest item at or below the ceiling (2026-08-04T01:36:50Z) and there is nothing above it yet, so the check it powers is the forward-looking one: nothing under the ceiling may be created after pooling, which is what id reuse after a delete would look like. Move maxItemId in the same commit as re-pooled gold, never separately."
+}

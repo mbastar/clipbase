@@ -1,0 +1,651 @@
+{
+  "note": "Human decisions over the 99 items in needs-human.json that the agent reviewer could not settle. Grade scale matches the sheet: 3 answers the query, 2 substantially relevant, 1 touches the subject, 0 not relevant. Following session 7's applied HIGH calls, 1 is used for on-topic-but-does-not-answer and 0 is reserved for items that are not about the subject at all. `why` is the reason the grade rests on and is the durable half of this pass — review.md can only carry the number. The ledger also carries adjustments to calls applied in an earlier pass; those entries are marked outside_pool and are not part of the 99.",
+  "rules": [
+    "Grade against the query as a literal search, benchmarked against the items already graded 3 for that query. The question is 'would this at rank 1 have answered it', not 'is this a good tool'.",
+    "A grade belongs to a (query, item) pair. An item that answers a different query is not promoted here on that account — it already scores where it belongs.",
+    "Near-duplicates are handled by an equivalence class, not by a grade. Items that are one answer at two URLs share a `group` label and every metric counts the group once: either copy is a full answer, returning both earns nothing extra, and the ideal ranking holds one representative. Each member keeps the grade its own document earns. This replaces the canonical-and-echo stopgap, which demoted the echo to 1 — that approximated the same arithmetic but understated nDCG when a method returned the echo, and encoded identity as a grade, which the next re-judging pass would have silently undone. A repo and a third party's article about it are NOT one product and are graded independently.",
+    "Grade from the mechanism the document ships, not from framing that reuses the query's vocabulary. This was the agent reviewer's leading error.",
+    "A real capability bundled inside a larger product is 1, not 0. A claim with no mechanism is 1. Only an item off the subject entirely is 0."
+  ],
+  "items": [
+    {
+      "query": 0,
+      "id": 335,
+      "grade": 3,
+      "why": "Purpose-built context/memory database for agents, which is the class every existing Q0 grade-3 belongs to. States the cross-session mechanism outright — 'Sessions become memory. After a session commits, OpenViking asynchronously extracts user preferences and agent experience into long-term memory' — with native Claude Code, Codex and Cursor integrations. The judge's 'not coding-specific' is contradicted by the document."
+    },
+    {
+      "query": 0,
+      "id": 336,
+      "grade": 2,
+      "why": "Grouped with its counterpart under 'openviking' and graded on its own merit. Previously demoted to 1 by the canonical-and-echo stopgap purely to keep the product out of the recall denominator twice; the group does that now, so the grade no longer has to carry identity as well as relevance."
+    },
+    {
+      "query": 0,
+      "id": 316,
+      "grade": 2,
+      "why": "Real durable memory reachable from inside Claude Code — Mnemosyne vault, memory_search/memory_get_note/memory_write_note, benchmarked on LongMemEval-S. Not 3 because the document scopes itself away from the query: 'Claude Code writes per-repository project notes; the vault is your life across projects.' A personal assistant that a coding agent can read, not memory for coding agents."
+    },
+    {
+      "query": 0,
+      "id": 50,
+      "grade": 2,
+      "why": "The one wiki-class item that ingests session history: dedicated skills mine ~/.claude and ~/.codex, so what persists is what happened in past sessions rather than notes about the codebase. That is the discriminator against 337/24/25, and it is why this one clears the threshold and they do not. Not 3 because recall is user-invoked (/wiki-query, @vault) rather than loaded each session."
+    },
+    {
+      "query": 0,
+      "id": 337,
+      "grade": 1,
+      "why": "Karpathy LLM Wiki with a governance layer — the same mechanism as hand-graded 24 (codealmanac) and 25 (plasma-ai/wiki), both 1, and the class this query's note defines as grade 1. Its opening line ('LLM agents forget everything between sessions') is the query's vocabulary, not a capability the others lack; grading on it is the reviewer's measured failure mode. Held at 1 rather than reopening two hand decisions."
+    },
+    {
+      "query": 0,
+      "id": 158,
+      "grade": 1,
+      "why": "Cross-session memory is real and literal — 'Persistent memory that survives across sessions, with semantic search', episodic/semantic/procedural buckets over sqlite-vec. Not an answer because it only ships inside a whole self-installing personal orchestrator with a Telegram interface and a specialist crew; nothing here is adoptable as memory for an existing coding agent."
+    },
+    {
+      "query": 0,
+      "id": 63,
+      "grade": 1,
+      "why": "GBrain is genuine cross-session memory for Claude Code — 'the memory your agent actually keeps between sessions', with learnings compounding and syncing to a private repo. One of 23 tools in an opinionated Claude Code kit, so someone searching for a memory layer has not found one. Above 153 on this axis: the mechanism exists."
+    },
+    {
+      "query": 0,
+      "id": 162,
+      "grade": 1,
+      "why": "taOSmd is strong agent memory on its own terms (97.0% on LongMemEval-S across 50+ sessions), but the coding-agent link is integration-only — Claude Code, aider and others join a project as team members through boards and messaging, and the document never gives them taOSmd. Memory is one subsystem of a 10k-word self-hosted agent OS."
+    },
+    {
+      "query": 0,
+      "id": 65,
+      "grade": 1,
+      "why": "Squarely on the query's axis — 'that hard-won knowledge evaporates when the session ends. The next session starts from zero' — and it persists into skills the agent auto-loads next session. Not 0. Held at 1 because it captures procedures and golden paths only, so it answers a narrower question than the one asked."
+    },
+    {
+      "query": 0,
+      "id": 153,
+      "grade": 1,
+      "why": "Claims the capability without shipping a mechanism: 'Your agents build up tribal knowledge over time — compounding institutional memory' on a marketing page for an agent-team desktop app. On the subject, so not 0, but it is the weakest of the grade-1s and must not outrank 158 or 63, which document working memory."
+    },
+    {
+      "query": 0,
+      "id": 339,
+      "grade": 1,
+      "why": "Persists across sessions and agents read it, but the content is a curated personal profile of the user, and the document disclaims accumulation outright: 'It is not a notes app, a journal, or a memory dump.' Answers 'stop re-explaining myself', not 'remember what we did'."
+    },
+    {
+      "query": 0,
+      "id": 37,
+      "grade": 1,
+      "why": "What persists is a corpus of fetched web sources — 'Every fetched source lands in a SQLite-indexed vault that every future research session can reuse' — not anything the agent learned. A 16-step deep-research report pipeline; grep for memory across the document finds no recall mechanism."
+    },
+    {
+      "query": 0,
+      "id": 315,
+      "grade": 0,
+      "why": "Rehydrates one session's transcript from disk, which is the opposite of carrying knowledge into a new session: 'you can quit or relaunch and it resumes every conversation exactly where you left it.' No memory concept anywhere else in the document. A GUI coding agent whose sessions never end."
+    },
+    {
+      "query": 20,
+      "id": 353,
+      "grade": 3,
+      "why": "Runs the GTM function as a whole: 'Content marketing — Topics, writing, visuals, multi-platform distribution, data recap — end to end' and 'Automated sales loop — Find leads, draft scripts, follow-up reminders — AI runs the flow', with explicit orchestration ('the lead splits the task, picks the right staff from the roster to work in parallel'). Marketing being one of seven role families does not demote it — Adspirer and Synter are grade 3 on ads alone, so breadth is not the axis."
+    },
+    {
+      "query": 20,
+      "id": 259,
+      "grade": 2,
+      "why": "A real GTM loop with agents on it — 'our AI agents Axel and Lyra are following up with all the prospects', GoHighLevel CRM plus voice agents for capture, workflows and nurturing. Not 3 because most of the runtime is manual Hormozi offer strategy done in Google Docs and ChatGPT, and the page is affiliate-driven; the agents run one stage, not the function."
+    },
+    {
+      "query": 20,
+      "id": 356,
+      "grade": 1,
+      "why": "Operates a channel end-to-end unattended — 'Create, schedule, follow up, and let it run automatically ... When someone replies, Swokei sorts it automatically' — which would reach 3 on the scope axis. Held at 1 on the query's other clause: it is 'an email automation tool built specific for web agencies' with 0 word-boundary hits for 'agent' or 'autonomous'. Automation, not agents."
+    },
+    {
+      "query": 20,
+      "id": 245,
+      "grade": 1,
+      "why": "Same shape as 356: a real GTM function (inbound qualification and booking) but delivered by one prompted chatbot in a 2023 GoHighLevel + Zapier tutorial. 0 word-boundary hits for 'agent' against 83 for 'bot'. Fails the agent clause, not the operations clause."
+    },
+    {
+      "query": 20,
+      "id": 139,
+      "grade": 1,
+      "why": "Genuinely autonomous — worker pool, Ralph loop, 'safe to leave on a schedule' — but the whole scope is ad creative production: explore concepts, vision-score them, render approved ones. Nothing about launching, targeting, distributing or measuring a campaign. Asset production, which is grade 1 on the scope axis."
+    },
+    {
+      "query": 20,
+      "id": 258,
+      "grade": 1,
+      "why": "Multi-agent by construction — 'every step—research, structuring, writing, and editing—is handled by a dedicated AI agent' — but the output is blog articles. One craft, no channel operated."
+    },
+    {
+      "query": 20,
+      "id": 265,
+      "grade": 1,
+      "why": "A build tutorial for a resellable LinkedIn content system; agents extract business overview, value proposition and ICP. 110 hits for 'LinkedIn' against 1 for 'outreach'. Single-craft content production."
+    },
+    {
+      "query": 20,
+      "id": 260,
+      "grade": 1,
+      "why": "One n8n agent with six content tools under a 'marketing team' headline. Word-boundary grep across the full transcript: 0 hits for 'campaign', 'CRM', 'ads', 'leads', 'distribution'. Asset production only."
+    },
+    {
+      "query": 20,
+      "id": 35,
+      "grade": 1,
+      "why": "A capability packaged for an agent, which is the grade-2 shape, but a single craft: SEO only, and diagnosis rather than execution — 'Every audit produces a prioritized action plan'. Held below 75 (marketingskills), which spans CRO, copywriting and several crafts and is hand-graded 2."
+    },
+    {
+      "query": 20,
+      "id": 46,
+      "grade": 1,
+      "why": "Same placement as 35 and for the same reason: real skill package, single craft. Brand strategy, naming, identity, voice, positioning. The skill map reaches channel names, but 'Skills are markdown files that give AI agents specialized knowledge and workflows' — no execution against an ad account, ESP or CRM."
+    },
+    {
+      "query": 2,
+      "id": 329,
+      "grade": 2,
+      "why": "Byte-budgeted reference in place of the payload — 'Only the string enters the consumer's context — the artifact behind it never travels unless something fetches it' / 'You grep for the one fact you need and pull 200 bytes — not the 9,000-token plan'. MCP-native, so a tool can return a token rather than a dump, which is a real mechanism for the query's problem. Not 3 because the document frames it for agent-to-agent handoffs throughout; the accumulating build logs and fetch dumps of a single session are never addressed."
+    },
+    {
+      "query": 2,
+      "id": 11,
+      "grade": 1,
+      "why": "Replaces the search step rather than bounding what tools return: 'Augment's Context Engine sends only the slice the task touches', with spend as the metric ('33% Lower Spend', 'Saved per run $421.34'). 0 occurrences of 'context window' across a 10.5k-word page, 1 of 'tool call'. Retrieval economy — the note's general context-bloat category."
+    },
+    {
+      "query": 2,
+      "id": 30,
+      "grade": 1,
+      "why": "'Lighter agents handle token-heavy research, coding, testing, and log reduction' is the same sub-agent-absorbs-output pattern as 292, which is graded 3, so the grep alone does not place it. Held at 1 because it is one bullet in a ten-skill catalog framed as expensive-model waste, not a mechanism the repo is about — the bundling rule."
+    },
+    {
+      "query": 2,
+      "id": 212,
+      "grade": 1,
+      "why": "The note's literal archetype: a Context Management section that is a table of '/clear | Reset entire context window' and '/compact | Summarize conversation to free space'. Tool output appears once as a list item and subagent isolation once as a sentence, inside a ~7k-word Claude Code compendium. General context-bloat management."
+    },
+    {
+      "query": 2,
+      "id": 333,
+      "grade": 1,
+      "why": "Retrieval substitute in the same family as 11, and graded with it: '120x fewer tokens — 5 structural queries: ~3,400 tokens vs ~412,000 via file-by-file search'. Its hooks add context rather than remove it — 'PreToolUse observes Grep / Glob and injects matching graph symbols as additionalContext... It never denies or replaces the requested tool call.' 0 occurrences of 'context window' or 'tool output'."
+    },
+    {
+      "query": 2,
+      "id": 363,
+      "grade": 1,
+      "why": "Retrieval economy for a Slack chat agent, not tool-output control for a coding agent. The single query-adjacent line — 'narrow enough to avoid stuffing full files into the prompt' — is framed as keeping token cost low. 0 occurrences of 'context window' or 'tool output' across 3.8k words."
+    },
+    {
+      "query": 2,
+      "id": 373,
+      "grade": 1,
+      "why": "Personal-vault token economy: vector search over Obsidian notes so Claude reads 3 files instead of 40. The subject is note retrieval and CLAUDE.md placement, not the output of an agent's tool calls, and the framing throughout is cost ('Every token you send to Claude costs money')."
+    },
+    {
+      "query": 2,
+      "id": 49,
+      "grade": 1,
+      "why": "The context economy is over the repo's own bundled brain, and the document disclaims the query's scope outright: '(This measures Buildable's bundled context, not your total Claude/Codex session tokens.)'. Closest tool-output line is 'The MCP tools return compact JSON by default'. 0 occurrences of 'context window' or 'tool output'."
+    },
+    {
+      "query": 11,
+      "id": 107,
+      "grade": 2,
+      "why": "Real command-level browser control — prompt 18 'Agent Drives the Browser | Snapshot the DOM, click, fill, screenshot to prove it worked', 'cmux new-pane --type browser --url <url>', skill cmux-browser covering open/click/fill/wait/snapshot/extract. Held at 2 because it is one tier of five in a 31-prompt catalog whose subject is standing up fleets of coding agents in a terminal; browser control is a surface it offers, not what it is."
+    },
+    {
+      "query": 11,
+      "id": 115,
+      "grade": 2,
+      "why": "Agent-driven browser with a live cursor, contra the judge's 'lacks explicit click-nav': the chrome strip reads 'agent Agent navigating' and section [02] Browser states 'It browses with your sessions, tabs, and logged-in context — then extracts sources, verifies facts'. Held at 2 because the browser is one of four product pillars and is framed for research extraction rather than general navigate-and-click."
+    },
+    {
+      "query": 11,
+      "id": 312,
+      "grade": 2,
+      "why": "States the parent capability as its subject — 'Build agents that see screens, click buttons, and complete tasks autonomously', with sb.mouse.click and sb.keyboard.type across Linux, macOS, Windows and Android. OS-level GUI control subsumes browser control, so it would serve someone asking this. Not 3 because the README has 0 hits for 'browser', 'website', 'web page' or 'chrome' and never demonstrates web navigation."
+    },
+    {
+      "query": 11,
+      "id": 52,
+      "grade": 1,
+      "why": "Browser automation exists but is a fixed Patchright script against a single host, not agent-directed control: 25 hits for 'browser' and ZERO for 'click' or 'navigat' anywhere in the document. Scripts are ask_question.py / notebook_manager.py / auth_manager.py against NotebookLM."
+    },
+    {
+      "query": 11,
+      "id": 106,
+      "grade": 1,
+      "why": "Ships no browser capability. The one bullet — 'drive your browser via the Chrome extension — open pages, fill forms, read content' — describes Claude Code's existing Chrome extension as a prerequisite. The repo's own layout is worker/ (D1 CRUD API), app/, tools/ and runners/*.bat, all glasses and CRUD. Presupposed, not provided."
+    },
+    {
+      "query": 11,
+      "id": 195,
+      "grade": 1,
+      "why": "The mechanism is inverted from the query: the site declares tools and an embedded chat panel calls them — 'WebMCP gives the browser a standard place for page tools: document.modelContext. Persona discovers those tools'. 0 hits for 'click', 'navigat', 'scroll', 'automat' or 'screenshot' in the whole page. An agent UI widget, not browser control."
+    },
+    {
+      "query": 11,
+      "id": 383,
+      "grade": 1,
+      "why": "Browser control is the article's premise, never its deliverable — the requirements list ends with 'Claude in Chrome browser extension', which the reader must already have. Everything 1Password adds is credential scoping: zero-exposure injection, biometric approval, TOTP handling."
+    },
+    {
+      "query": 11,
+      "id": 392,
+      "grade": 1,
+      "why": "Agent-driven navigation is five lines of plumbing for one site ('Navigate to your LinkedIn analytics page ... Visit each post's individual analytics page and scrape'), and quick start step 2 is 'Open Chrome and log in to LinkedIn' — the human logs in, the skill scrapes. The document is a dashboard."
+    },
+    {
+      "query": 11,
+      "id": 63,
+      "grade": 2,
+      "why": "Adjusted down from the 3 applied by session 7's HIGH pass. The capability is real — '/open-gstack-browser launches GStack Browser, an AI-controlled Chromium with anti-bot stealth, custom branding, and the sidebar extension baked in' — but it is one of 23 tools in a Claude Code kit, which is the same ground on which 107 and 115 are held at 2 here and on which this item is graded 1 in Q0. Q11's grade-3 class is products whose subject is browser control (36, 82, 97); no bundled capability should sit level with them. A 2-vs-3 boundary call, not a factual error, so it is weak evidence about the HIGH band.",
+      "outside_pool": true
+    },
+    {
+      "query": 15,
+      "id": 203,
+      "grade": 3,
+      "why": "Satisfies both constraints. Library: 'Showing 85 loops', each with its full prompt text, browsable and served by an API at signals.forwardfuture.com/loop-library/api/loops. Command line: 'npx skills add Forward-Future/loopy --skill loopy -g' installs a skill for finding, crafting and running them from a coding agent in a terminal. Differs from 156 (Fabric) in shape — a catalog plus an installable helper rather than a standalone prompt runner — but the query asks for a library it can run, not for Fabric's architecture."
+    },
+    {
+      "query": 15,
+      "id": 69,
+      "grade": 2,
+      "why": "Command-line axis satisfied — 'commands you can run in Claude Code, OpenAI Codex, or any agent that reads the agentskills.io SKILL.md format' via npx skills add. Library axis thin: exactly 8 skills on one theme (blindspot-pass, brainstorm-prototypes, interview-me, reference-hunt, implementation-plan, notes, pitch-packager, change-quiz). A themed pack, not a browsable collection — the mirror image of 297, which has the library and no runner."
+    },
+    {
+      "query": 15,
+      "id": 90,
+      "grade": 2,
+      "why": "Supplies the runner and not the prompts: 'Define multi-step workflows in Markdown. Run each stage through Claude Code, Codex, Gemini, Copilot, or any CLI.' Shipped content is three examples under .crewplane/workflows/example-templates/; you author the rest. One constraint fully met, which is where 297 sits from the other side."
+    },
+    {
+      "query": 15,
+      "id": 35,
+      "grade": 1,
+      "why": "25 user-invocable /seo commands is a real command surface, but every entry is welded to one domain (/seo audit <url>, /seo schema <url>, /seo hreflang <url>) and the prompts are the tool's internals rather than a collection anyone browses and reuses. A purpose-built SEO plugin."
+    },
+    {
+      "query": 15,
+      "id": 50,
+      "grade": 1,
+      "why": "~29 slash commands, every one bound to vault maintenance (/wiki-setup, /wiki-ingest, /wiki-lint, /cross-linker, /tag-taxonomy). The commands act on an Obsidian vault; nothing here is a reusable prompt for general work."
+    },
+    {
+      "query": 15,
+      "id": 55,
+      "grade": 1,
+      "why": "The entire command surface is one behaviour: /ponytail to set intensity, /ponytail-review for the current diff, /ponytail-audit for the repo. A code-minimalism skill with benchmarks, not a collection. One command family is not a library."
+    },
+    {
+      "query": 15,
+      "id": 49,
+      "grade": 1,
+      "why": "The CLI consumes a prompt rather than supplying one — buildable plan '<prompt>', buildable design '<prompt>'. The reusable bundled assets are archetypes, golden templates and UI/UX playbooks for Expo and React Native scaffolding. No prompt library exists in the document."
+    },
+    {
+      "query": 15,
+      "id": 215,
+      "grade": 1,
+      "why": "Five chat prompts pasted into a Reddit post, and the command-line axis is verifiably absent: zero occurrences of npx, install, terminal or 'command line' in the whole document. The judge's own rationale names the miss."
+    },
+    {
+      "query": 17,
+      "id": 160,
+      "grade": 3,
+      "why": "Both clauses with a concrete mechanism: 'A local daemon runs many Agent sessions in parallel on your laptop' plus worktree provisioning per task — 'let HumanLayer provision worktrees and launch the first agent session', 'Target ~/.humanlayer/worktrees/auth-middleware-refactor/{repo}', and 'Multi-Repo Workspaces & Worktrees' in pricing. The page never names collision as the problem, but that is vocabulary; 105 is grade 3 for exactly this mechanism."
+    },
+    {
+      "query": 17,
+      "id": 304,
+      "grade": 2,
+      "why": "Real isolation by a different route than worktrees: 'Each agent is its own Linux user - own home dir, own git identity, own GitHub PRs', with task-level de-duplication through claiming ('gh issue edit N --add-assignee @me, then re-read the issue to confirm you won the claim'). Held at 2 because the document's stated differentiator is secret brokering and kernel egress containment, and 0 hits for worktree, conflict, clash or collide — same-repo collision is not the problem it sets out to solve."
+    },
+    {
+      "query": 17,
+      "id": 63,
+      "grade": 1,
+      "why": "Ships no clash-avoidance of its own. The parallel content is one testimonial paragraph pointing at a third-party tool — '[Conductor] runs multiple Claude Code sessions in parallel — each in its own isolated workspace'. Verified worktree hits: 3 in 6,838 words, all incidental (an uninstall path, a settings note, one --execute flag). Graded 1 here and 2 in Q11 for the same reason in both: it ships a browser, it only mentions someone else's isolation."
+    },
+    {
+      "query": 17,
+      "id": 212,
+      "grade": 1,
+      "why": "The mechanisms exist only as reference-table rows in a 7,236-word catalog: subagent frontmatter 'isolation | No | worktree', '/batch ... each file independently with its own worktree', and 'Claiming uses file locking to prevent race conditions'. Agent-team members otherwise share one checkout and the document never treats that as a problem."
+    },
+    {
+      "query": 17,
+      "id": 150,
+      "grade": 1,
+      "why": "Exactly 1 'worktrees' hit and 1 'isolated' hit in the whole README, inside a general sessions bullet ('Coding sessions open local folders, support isolated git worktrees'). The team model — 'A lead can delegate to specialists, coordinate them through an async mailbox' — is never connected to it; the document never says each specialist gets its own worktree."
+    },
+    {
+      "query": 17,
+      "id": 361,
+      "grade": 1,
+      "why": "One occurrence of 'sandboxes' is the entire clash answer: 'This is where agent sandboxes shine. Each agent runs in complete isolation.' No tool, no mechanism, 0 hits for worktree, collide or clash. Heavy on the parallel half — '3 Claude Code instances + 3 Gemini instances + 3 Codex instances all tackling the same problem' — and silent on the second clause."
+    },
+    {
+      "query": 17,
+      "id": 272,
+      "grade": 1,
+      "why": "0 hits for worktree, work tree, isolat*, conflict*, clash, collid*, container or sandbox across 6,778 words. The three problems the video names are 'no programmatic access, no way to monitor and improve, and the slow grind of booting an agent team by hand' — none of them clashing. It runs 8 agents that all attack the same problem in parallel with no isolation story; the judge's stated reason is not in the document."
+    },
+    {
+      "query": 23,
+      "id": 12,
+      "grade": 2,
+      "why": "The one candidate with a preventive mechanism rather than a description: 'Agent re-implements a util that already exists three folders over | Static analysis + clone detection feeds existing code into pre-edit context.' That is the same rule the gold item states for itself (55: 'Already in this codebase? -> reuse it, don't rewrite'). Held at 2 because it is a single comparison-table row in a pitch for a codebase-graph context substrate."
+    },
+    {
+      "query": 23,
+      "id": 263,
+      "grade": 1,
+      "why": "Overrides a unanimous 3 from the judge and both agent passes. The whole 24,825-word transcript contains exactly 2 rewrite-family hits, in one aside — 'sometimes the AI becomes lazy where it rewrites that same codebase, but it purposely removes some functionality'. It names the complaint and prescribes nothing; Q23's grade-3 class is documents whose purpose is stopping the behaviour. A general vibe-coding tutorial does not belong level with ponytail."
+    },
+    {
+      "query": 23,
+      "id": 251,
+      "grade": 1,
+      "why": "Contains one real technique on the axis — 'tell it what did work and then what I still want to be changed ... makes sure that the things that it already implemented correctly don't become broken' — but it is roughly 60 words of a 5,236-word 37-tip listicle, and the surrounding advice pushes the opposite way ('ask it to refactor and simplify your code')."
+    },
+    {
+      "query": 23,
+      "id": 205,
+      "grade": 1,
+      "why": "All 8 'rewrite' hits concern wiki markdown, not code: 'it must not rewrite the original source summary, interpretation, or claims without explicit human approval', 'Do not rewrite source-note claims.' Every 'code' hit is about which coding agent edits the wiki folder. No passage concerns source code the agent should leave alone."
+    },
+    {
+      "query": 23,
+      "id": 212,
+      "grade": 1,
+      "why": "Recovery rather than prevention: 'Every prompt creates a checkpoint... Restore code only | Undo file changes, keep conversation', plus an anti-pattern table about correction loops. Only 2 refactor-family hits in 7,236 words, both incidental, and 0 hits for rewrite, surgical or 'already work'."
+    },
+    {
+      "query": 23,
+      "id": 26,
+      "grade": 1,
+      "why": "Cause-level only — 'an agent loses the why behind earlier choices and silently breaks patterns it established an hour ago'. Verified counts across the document: rewrite 1, refactor 1, reimplement 0, duplicate 0, and all hits are unrelated (an installer's CLAUDE.md block, an uninstall note, a demo claim string)."
+    },
+    {
+      "query": 23,
+      "id": 51,
+      "grade": 1,
+      "why": "The single on-point token is 'edit cycling', one hit, inside a friction-telemetry list: 'an analyzer detects friction patterns (repeated failures, edit cycling, sequential searches that should be parallel)'. Verified 0 hits for rewrite, refactor, duplicate, 'already exists' or surgical. The rest is a skills catalogue."
+    },
+    {
+      "query": 1,
+      "id": 304,
+      "grade": 2,
+      "why": "Names the threat exactly — 'An autonomous agent is an untrusted workload: prompt injection, a poisoned dependency, or a model mistake can turn it into an exfiltration engine. clem's stance is contain it at the OS layer' — with a per-UID nftables egress firewall and a secret-zero credential broker. A real security boundary, but over credentials and network rather than code execution, and the document positions itself against the thing asked for: 'Why this is stronger than in-process or single-container sandboxes'."
+    },
+    {
+      "query": 1,
+      "id": 309,
+      "grade": 2,
+      "why": "Real configurable mechanism: 'Run agents in isolated Docker containers for untrusted or experimental work. webmux manages the container lifecycle, port forwarding, and volume mounts automatically', backed by a documented schema (profiles.sandbox.image, mounts[].writable read-only by default, systemPrompt 'You are running inside a sandboxed container'). Subordinate to a worktree dashboard whose subject is tmux, PR/CI and Linear; no threat model or escape discussion."
+    },
+    {
+      "query": 1,
+      "id": 130,
+      "grade": 1,
+      "why": "The isolation covers human-written third-party plugins, not generated code: 'run a module's backend in a sandboxed subprocess, or in its own hardened Docker container'. The AI path has no sandbox at all — Code Lab generates code and ends in 'One-click Send to n8n to deploy directly' — and the default mode is disclaimed: 'heuristic review, not a sandbox'."
+    },
+    {
+      "query": 1,
+      "id": 154,
+      "grade": 1,
+      "why": "Removes code execution rather than sandboxing it: 'No code runs on your machine - every tool call executes in an isolated remote environment', 'No long-lived shell access'. 0 occurrences of 'untrusted' and no interpreter or code-execution surface anywhere. A personal agent with brokered OAuth tools."
+    },
+    {
+      "query": 1,
+      "id": 311,
+      "grade": 1,
+      "why": "0 occurrences of 'untrusted' and 0 of 'code'; 'security' appears once, as a link label. Every sandbox mention is a disposable GUI desktop VM for computer-use work — 'boot disposable GUI environments through Python, locally or in Cua Cloud' — and the isolation exists for fleet reproducibility and training-data generation, not for safely executing generated code."
+    },
+    {
+      "query": 8,
+      "id": 203,
+      "grade": 2,
+      "why": "Contains two genuine spec-driven loops: Goal Forge — 'write SPEC.md: what to build, exclude, and consider, plus measurable done_when completion checks ... Do not start implementation without approval' — and prepare-a-new-project, whose 'documents cover requirements, technical design, tasks with acceptance criteria, and test strategy'. Diluted: SPEC.md appears once, 'acceptance criteria' four times and 'specification' twice across all 85 loops, so the method is present in the catalog rather than being its subject."
+    },
+    {
+      "query": 8,
+      "id": 250,
+      "grade": 2,
+      "why": "Delivers the spec-authoring half in full — 'generate the following documents the product requirement document the front end documentation the backend documentation and the third party libraries documentation' — then stops at 'the only thing you really need to do is to start the development process'. No task breakdown, no agent execution, no spec-compliance check; half a workflow."
+    },
+    {
+      "query": 8,
+      "id": 61,
+      "grade": 1,
+      "why": "Verified absence: grep for spec-driven|specification|spec|design doc|implementation plan|acceptance criteria returns 0 hits across the whole document. The subject is repo coherence — 'A root agent index ... PRODUCT.md, GLOSSARY.md, ADRs, a roadmap, a shipped log' — with only 'plan-then-implement' and 'State success criteria before implementing' appearing once each."
+    },
+    {
+      "query": 8,
+      "id": 149,
+      "grade": 1,
+      "why": "0 hits for spec, specification or requirements in the entire 510-word page. A project-management product pitch — 'Tasks, ideas, plans, docs — or define your own' and 'Define conventions and playbooks to teach agents your project's rules'. No spec artifact and no spec-to-implementation loop."
+    },
+    {
+      "query": 8,
+      "id": 376,
+      "grade": 1,
+      "why": "The title is nearly the query verbatim, but the stored document is paywall-truncated: marked 'Member-only story', the body runs from the motivating anecdote to 'when it got stuck in a reasoning loop, it...' and stops, with the remaining ~237 stored lines being Medium navigation and the SVG wordmark. The workflow the title promises is not in the corpus, and a grade must rest on the stored document. Distinct from the Q11 item-9 case: this one has content and is reachable by every method, it just does not answer."
+    },
+    {
+      "query": 16,
+      "id": 302,
+      "grade": 3,
+      "why": "The canonical answer, both axes: 'Run /init at the start of a project. Claude generates a claude.md file that captures architecture, conventions, and key context your project blueprint.' The stored document is a truncated member-only story, but unlike 376 in Q8 the answer is present and intact — depth behind an answer does not change whether it answers."
+    },
+    {
+      "query": 16,
+      "id": 21,
+      "grade": 2,
+      "why": "Does both things the query names: 'On each code run, openwiki maintains both an AGENTS.md and a CLAUDE.md at the repository root... Each file is created if it does not already exist', invoked as openwiki 'Please generate documentation for this repository'. Not 3 because the CLAUDE.md it writes is a pointer block telling the agent to consult the wiki; the repo-derived text lands in openwiki/."
+    },
+    {
+      "query": 16,
+      "id": 297,
+      "grade": 2,
+      "why": "Prompt 11 does specify creating the file — 'Give Claude Code one concise CLAUDE.md starting file', 'Move repeatable procedures into skills instead of bloating CLAUDE.md' — but its input is 'folders, documents, databases, repositories, meeting notes, style guides', a scattered-context audit. Nothing in it reads an existing codebase, which is the query's second axis."
+    },
+    {
+      "query": 16,
+      "id": 24,
+      "grade": 1,
+      "why": "Verified absence of the query's central term: 0 occurrences of CLAUDE.md or AGENTS.md in the full document. The artifact is a separate wiki — 'Markdown pages live directly under almanac/ in meaningful folders' — and --target claude only selects which global agent instruction files to install. Has the generate-for-an-existing-repo axis and not the CLAUDE.md axis."
+    },
+    {
+      "query": 16,
+      "id": 68,
+      "grade": 1,
+      "why": "Is a CLAUDE.md rather than a way to produce one: 'These rules compensate for known model failure modes. They are procedures, not advice', followed by a routing table and iron rules, with its own project section reading '## Project (none yet — fresh install)'. No generation step and no repository analysis anywhere; the judge's own rationale names the miss."
+    },
+    {
+      "query": 24,
+      "id": 61,
+      "grade": 3,
+      "why": "Unanimous 3 from the judge and both passes, and the document supports it. Stated problem is the query's: 'keeping it aligned after week six - when the vocabulary has drifted, the decisions live in old chat logs'. Mechanism is agent-side and specific: grill-with-docs — 'the agent reads the actual glossary and docs (greps before claiming a term is missing), challenges fuzzy language ... It's the antidote to the definition drift' — plus 'add one deterministic check for the drift this repo is most prone to'. Covers both the stale source and the confident assertion."
+    },
+    {
+      "query": 24,
+      "id": 12,
+      "grade": 2,
+      "why": "States the query's problem verbatim — 'a second brain for your codebase, built in markdown, manually maintained, going stale every week', aimed at 'anyone maintaining a CLAUDE.md, .cursor/rules, or AGENTS.md and quietly knowing it's already out of date' — but the fix is substitution rather than detection: 'Decisions and constraints captured automatically from your agent conversations'. Nothing flags a stale rule at the moment the agent follows it."
+    },
+    {
+      "query": 24,
+      "id": 297,
+      "grade": 2,
+      "why": "Prompt 11 is on-axis — 'Identify conflicts, duplication, stale guidance, and missing information' and 'Fable can flag stale or conflicting guidance' — reinforced by 'Check for conflicts with existing instructions' before updating CLAUDE.md. One prompt in a roughly 14-prompt library, and the remedy is a one-off context reorganisation, not a check at follow-time."
+    },
+    {
+      "query": 24,
+      "id": 161,
+      "grade": 2,
+      "why": "The judge missed the on-axis line: 'Decisions become status-carrying records (owner, review date, reversal condition) ... A weekly Decision Radar surfaces what's active, stale, conflicting, blocking ... Stops the team from re-deciding and contradicting itself.' A real staleness mechanism over the context the agent reads, but 'stale' appears once in 3,000 words, it is one feature-table row, and the radar is a human weekly review rather than an agent-side check."
+    },
+    {
+      "query": 24,
+      "id": 168,
+      "grade": 1,
+      "why": "Verified absence: grep for stale|out-of-date|outdated|drift|conflict|obsolete over the full page returns 0 hits. Nearest claims are incidental ('living documentation, so you always know what the code is supposed to do'). The capability is spec-first planning through proposal.md, design.md, tasks.md and spec deltas; the judge's own reason concedes it is not a staleness fix."
+    },
+    {
+      "query": 5,
+      "id": 133,
+      "grade": 2,
+      "why": "Local execution on your own hardware is the architecture, not a mention: 'The full voice I/O stack, running locally on your machine', 'powered by a bundled Qwen3 LLM running entirely locally', 'Local LLM options: Qwen3 0.6B / 1.7B / 4B, sharing the TTS runtime (MLX on Apple Silicon, PyTorch elsewhere)', and no cloud provider option anywhere. Held at 2 because the LLM is a support component of a voice studio; TTS and STT are the product."
+    },
+    {
+      "query": 5,
+      "id": 5,
+      "grade": 1,
+      "why": "'local' or 'locally' appears once in 12,175 words, as a pedagogical device for defining what a model is, and the talk immediately walks it back: 'I'm slightly cheating here ... this was not running a 70 billion parameter model it was only running a 7 billion parameter model.' No runner, no install path, no model-selection guidance."
+    },
+    {
+      "query": 5,
+      "id": 179,
+      "grade": 1,
+      "why": "Local models are one row in a provider list dominated by cloud: 'Currently supported providers are: OpenAI, Google, Anthropic, Grok, Mistral, OpenRouter, Straico and Apple Intelligence. Local MLX models and any OpenAI-compatible providers ... are also supported.' 0 occurrences of 'offline', and the only privacy claim concerns local storage of history, not local inference."
+    },
+    {
+      "query": 5,
+      "id": 255,
+      "grade": 1,
+      "why": "The Ollama segment is roughly 3.5 minutes of 34 and is a prompting demo rather than the procedure: 'it goes through comes up with a step-by-step guide of what I should copy and paste in my terminal' — the commands themselves are never given. The document is ten o3 use cases (lead gen, Chrome extension, legal review, ebooks)."
+    },
+    {
+      "query": 9,
+      "id": 367,
+      "grade": 3,
+      "why": "Thesis is the query stated as a symptom — 'Purple-to-blue gradient. Inter font. A card inside a card inside a card... you know this exact look' — with the fix given: 'giving Claude Code something closer to an actual design opinion, in the form of a skill it reads before it touches any code.' Truncated member-only story, but as with 302 in Q16 the answer is present and intact; depth behind an answer does not change whether it answers."
+    },
+    {
+      "query": 9,
+      "id": 63,
+      "grade": 2,
+      "why": "Named mechanisms aimed squarely at the problem: 'a designer who catches AI slop'; '/plan-design-review | Senior Designer | Rates each design dimension 0-10... AI Slop detection'; 'gstack-taste-update — Design taste learning — writes approvals and rejections into a persistent per-project taste profile. Decays 5%/week.' Held at 2 because it sits inside a 6,838-word general engineering-team README rather than being a treatment of generic AI UI."
+    },
+    {
+      "query": 9,
+      "id": 49,
+      "grade": 1,
+      "why": "Delegates the query's capability elsewhere in its own words: 'Pairs with dedicated design skills: Buildable decides what to build... add a design skill when you want high-end brand exploration, custom art direction, or multiple visual concepts.' Its design work is structural — 'Design quality is graded against surface-specific rubrics, not taste'. Only 2 hits for 'generic', both template filenames."
+    },
+    {
+      "query": 22,
+      "id": 390,
+      "grade": 2,
+      "why": "A real installable macOS markdown editor with a documented path — 'macOS — Requires macOS 11 (Big Sur) or later' and 'brew install --cask mark-text' — but the title and tagline commit to cross-platform, 'Available for Linux, macOS and Windows.' Calibrated against gold 20, which also ships cross-platform builds at grade 2."
+    },
+    {
+      "query": 22,
+      "id": 118,
+      "grade": 1,
+      "why": "A real downloadable markdown-file app, but macOS is never stated: both hits for 'native' are 'native relationships', and there are no occurrences of macos, windows, linux or desktop anywhere in the document. The query's platform constraint is unevidenced."
+    },
+    {
+      "query": 22,
+      "id": 408,
+      "grade": 1,
+      "why": "Right product category and almost certainly a native Mac editor in the world, but the stored document has 0 hits for macos, mac os, windows, linux, native or download — the only platform-adjacent token is one 'iCloud' inside a sync aside. The grade rests on the stored document, and this one never claims the platform."
+    },
+    {
+      "query": 0,
+      "id": 336,
+      "grade": 2,
+      "why": "Grouped with its counterpart under 'openviking' and graded on its own merit. Previously demoted to 1 by the canonical-and-echo stopgap purely to keep the product out of the recall denominator twice; the group does that now, so the grade no longer has to carry identity as well as relevance.",
+      "outside_pool": true
+    },
+    {
+      "query": 22,
+      "id": 131,
+      "grade": 2,
+      "why": "Grouped with its counterpart under 'openknowledge' and graded on its own merit. Previously demoted to 1 by the canonical-and-echo stopgap purely to keep the product out of the recall denominator twice; the group does that now, so the grade no longer has to carry identity as well as relevance.",
+      "outside_pool": true,
+      "target": "gold"
+    },
+    {
+      "query": 27,
+      "id": 202,
+      "grade": 3,
+      "why": "Grouped with its counterpart under 'agentcn' and graded on its own merit. Previously demoted to 1 by the canonical-and-echo stopgap purely to keep the product out of the recall denominator twice; the group does that now, so the grade no longer has to carry identity as well as relevance.",
+      "outside_pool": true,
+      "target": "gold"
+    },
+    {
+      "query": 1,
+      "id": 101,
+      "grade": 2,
+      "why": "Grouped with its counterpart under 'opencomputer' and graded on its own merit. Previously demoted to 1 by the canonical-and-echo stopgap purely to keep the product out of the recall denominator twice; the group does that now, so the grade no longer has to carry identity as well as relevance.",
+      "outside_pool": true,
+      "target": "gold"
+    },
+    {
+      "query": 6,
+      "id": 18,
+      "grade": 2,
+      "why": "A real, reproducible retrieval evaluation rather than a benchmark badge: 'Every harness ships in bench/ with a one-line reproduce command'; 'Validated in a single harness against mempalace on the identical 500 cleaned questions, session granularity, recall_any@k, raw (no rerank)' with an R@5/R@10 table on a matched embedder, and the honest caveat 'LongMemEval is a cold, one-shot retrieval test; it doesn't exercise cross-session memory.' Demonstrates how one system evaluates retrieval; a 3 would be a how-to."
+    },
+    {
+      "query": 6,
+      "id": 162,
+      "grade": 2,
+      "why": "States the RAG evaluation loop directly — 'retrieve -> generate -> judge-with-LLM-grader, 500 questions across 50+ sessions each' — and explains why the usual comparison misleads: 'comparators publish Recall@5 retrieval scores on the same dataset, which measures only whether the correct session lands in the top-5 (no generation, no judge). The metrics aren't apples-to-apples.' Backed by an ablation. The judge's 'not RAG' objection is weak given hybrid semantic+keyword search with cross-encoder rerank, but this is roughly three paragraphs of a 10k-word product README."
+    },
+    {
+      "query": 18,
+      "id": 260,
+      "grade": 1,
+      "why": "No article-to-video path exists in the document. The video workflow takes 'a given short video topic' — 'what we got sent over was a beaver building a house... creating four images and four 5-second long videos and rendering it all together' — and the blog-post workflow feeds its output to an image prompt agent ('using that post make a sort of a graphic'), never to the video workflow. Same structural miss as gold 139, graded 1."
+    },
+    {
+      "query": 18,
+      "id": 399,
+      "grade": 1,
+      "why": "Input is strictly an existing YouTube podcast, never text: 'You give it a YouTube podcast link. The agents transcribe the episode, find the moments most likely to perform, cut them to vertical 9:16', invoked as factory auto '<youtube url>'. Output is clipped from source footage, so someone holding a written article cannot feed this pipeline at all."
+    },
+    {
+      "query": 12,
+      "id": 305,
+      "grade": 2,
+      "why": "Closer to the query than the judge's reason allowed: 'runtime-shell | Shell runtime — executes CLI commands (curl, psql, oc, ping...)', 'Use for: shell tools — curl, oc, kubectl, psql, ping, ssh, any CLI command', and 'Visual tool builder — create MCP tools from a web form, not code'. Short of 3 on the query's possessive: existing scripts must be baked into an image first — 'If you need tools not available in the base images ... write your own Dockerfile: FROM mcp-runtime-shell:latest'."
+    },
+    {
+      "query": 19,
+      "id": 402,
+      "grade": 2,
+      "why": "Delivers the text-to-speech clause fully and locally, and its own Voice Cloning section states the miss: 'This open-weight repository focuses on fixed-voice, local TTS and does not include an official voice-cloning pipeline. If you want to bring your own voice ... Voice Builder turns a short reference recording into version-specific JSON files.' One clause in the artifact, the other through a documented first-party adjacent product."
+    },
+    {
+      "query": 26,
+      "id": 247,
+      "grade": 2,
+      "why": "The free-recall check this query's note names is literally present — chapter marker '19:55 — Quiz' and 'I will now put on screen the questions for the little assessment please answer these questions to actually retain the information', with no answers supplied. Held at 2 because it teaches one fixed topic; a 3 is a method or tool that teaches a topic of your choosing and then quizzes."
+    },
+    {
+      "query": 27,
+      "id": 324,
+      "grade": 1,
+      "why": "Verified 0 hits for shadcn, radix or tailwind, and the capability differs as much as the brand: 'A themeable, pluggable AI chat widget for websites: built in TypeScript with zero framework dependencies. It renders using Vanilla JS' — a drop-in monolithic widget extended through 14 render hooks and CSS variables, not composable copy-in components you own. Real agent-interface UI, but nothing a shadcn-stack builder could compose with."
+    },
+    {
+      "query": 17,
+      "id": 410,
+      "grade": 2,
+      "outside_pool": true,
+      "why": "Adjusted down from the 3 an agent pass applied. Q17's grade-3 class carries an actual anti-collision mechanism (105: a worktree per agent; 88: shared todos and locks). This is a video that discusses worktrees and colliding work but ships nothing, which puts it above 272 — where the same word-boundary check returned zero across 6,778 words — and below the two that do. nDCG-only impact: 2 clears RELEVANT_GRADE, so recall, Success@1/@5 and MRR are untouched."
+    }
+  ]
+}

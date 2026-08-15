@@ -1,0 +1,11 @@
+-- 0002_failure_reason: record why extraction failed, not just that it did.
+--
+-- status='extraction_failed' collapsed every cause into one bucket, so a
+-- permanently walled URL (login gate, JS challenge) was indistinguishable from
+-- a transient fetch error. Any future retry policy needs that distinction to
+-- avoid re-spending credits on URLs that will never succeed.
+--
+-- NULL for status='ok' rows, and for failures recorded before this migration.
+-- Like the other enum-like TEXT columns, values are enforced in app code and
+-- documented in docs/data-model.md.
+ALTER TABLE items ADD COLUMN failure_reason TEXT;

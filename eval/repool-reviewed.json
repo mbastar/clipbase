@@ -1,0 +1,725 @@
+{
+  "why": "Human decisions for the re-pool pass: items above the 411 ceiling, judged for the first time. Same schema as reviewed.json — the grade lands in the sheet, the reason lives here, because apply-review.mts parses `^VERDICT: [0-3]$` and anything trailing breaks it.\n\nThe judge's pre-fills on this run were measured, not assumed: 279 already-decided pairs were re-graded blind, and it agreed on answer/not 68% of the time with the error running one way — 98 grades too high against 21 too low. Precision of its 3 was 84%; precision of its 2 was 45%. That is why the demotions below outnumber the confirmations, and why a NEW-3 mostly stands.",
+  "items": [
+    {
+      "query": 0,
+      "id": 423,
+      "grade": 3,
+      "why": "memelord: persistent memory for coding agents, injected into context by a SessionStart hook. The query's subject exactly."
+    },
+    {
+      "query": 0,
+      "id": 424,
+      "grade": 3,
+      "why": "mnemosyne: episodic memory store that plugs into Claude Code, Cursor and Codex over MCP, surviving between sessions by design."
+    },
+    {
+      "query": 0,
+      "id": 425,
+      "grade": 2,
+      "why": "NeatContext extracts durable knowledge from agent conversations for reuse later, which is substantially relevant — but the extraction is something you invoke, not memory that persists on its own. Substantially relevant, not the answer."
+    },
+    {
+      "query": 0,
+      "id": 426,
+      "grade": 3,
+      "why": "beads is persistent structured memory for coding agents across long-horizon tasks, and says so. A dependency graph is the storage form, not a reason to discount it — the state survives sessions and the agent reads it back."
+    },
+    {
+      "query": 0,
+      "id": 427,
+      "grade": 1,
+      "why": "Hindsight is agent memory that learns, but explicitly not coding-specific — the judge said so in the same breath as grading it 2. The query is about coding agents."
+    },
+    {
+      "query": 0,
+      "id": 477,
+      "grade": 1,
+      "why": "pi.dev is a package marketplace listing that happens to include memory extensions. A directory page, not a memory system."
+    },
+    {
+      "query": 1,
+      "id": 487,
+      "grade": 2,
+      "why": "Docker Sandbox running agent code in a microVM with no host access. The judge's hedge was about the format being a video, not about whether it answers."
+    },
+    {
+      "query": 5,
+      "id": 476,
+      "grade": 1,
+      "why": "Ghost is a macOS launcher routing across eight providers, of which LM Studio and Ollama are two. Local models are a supported option, not the subject."
+    },
+    {
+      "query": 8,
+      "id": 431,
+      "grade": 3,
+      "why": "claudex-build: the plan's goal and acceptance criteria are what gets implemented, and vague steps are called out as producing vague code. Spec-driven by construction."
+    },
+    {
+      "query": 8,
+      "id": 486,
+      "grade": 3,
+      "why": "The spec decides where the work goes, the tickets decide how, and agents implement against both. The workflow the query names, demonstrated end to end."
+    },
+    {
+      "query": 8,
+      "id": 459,
+      "grade": 2,
+      "why": "The interview that produces a spec, then handed to Codex or Claude Code, is genuinely spec-driven development — but it is one prompt inside a broad founder SOP kit rather than the workflow itself."
+    },
+    {
+      "query": 14,
+      "id": 450,
+      "grade": 1,
+      "why": "A catalogue of self-hosted n8n production failures with an external watchdog script. The judge's own reason says 'not a control panel', which is the thing asked for."
+    },
+    {
+      "query": 15,
+      "id": 437,
+      "grade": 1,
+      "why": "A catalog of installable agents run via npx. The judge's own reason says 'not simple prompts', and the query asks for a prompt library."
+    },
+    {
+      "query": 15,
+      "id": 459,
+      "grade": 1,
+      "why": "A prompt and template kit whose command-line use the judge itself called unclear. The query is specifically about running them from the command line."
+    },
+    {
+      "query": 15,
+      "id": 486,
+      "grade": 1,
+      "why": "A video walking through a skills repo. It touches reusable prompts, but the query asks for a library you run from the command line, which this is not."
+    },
+    {
+      "query": 16,
+      "id": 421,
+      "grade": 2,
+      "why": "hedgehog init scaffolds per-host agent config files, so it does generate one — but it is aimed at starting a project, where the query has an existing repo."
+    },
+    {
+      "query": 16,
+      "id": 455,
+      "grade": 1,
+      "why": "Explains where CLAUDE.md goes and what belongs in it. The query asks to generate one, and the judge's own reason says 'not a generator tool'."
+    },
+    {
+      "query": 17,
+      "id": 417,
+      "grade": 3,
+      "why": "operator-oss: many Claude Code or Codex sessions in parallel, each isolated in its own git worktree. Directly the mechanism the query asks about."
+    },
+    {
+      "query": 17,
+      "id": 420,
+      "grade": 3,
+      "why": "agentbox: multiple agents in parallel sandboxed VMs from a single command."
+    },
+    {
+      "query": 17,
+      "id": 416,
+      "grade": 1,
+      "why": "Piyaz is an agentic workspace holding a project as a graph. It touches multi-agent work but says nothing about several agents on one repo avoiding each other, which is what Q17 asks."
+    },
+    {
+      "query": 17,
+      "id": 430,
+      "grade": 2,
+      "why": "Per-agent write fences confine each agent to .worktrees/<branch>/ and its own session folder, which is precisely how they avoid clashing — though the repo frames it as permissions rather than concurrency."
+    },
+    {
+      "query": 20,
+      "id": 432,
+      "grade": 1,
+      "why": "A skills library for GTM agents, not an agent that runs GTM operations — the judge's own reason. Note: this is the recurring skills-tooling class that grades 1 in every query it enters; the sibling-query pair is what would give it a home, not a regrade here."
+    },
+    {
+      "query": 24,
+      "id": 421,
+      "grade": 1,
+      "why": "Hedgehog's mechanical enforcement means correctness does not depend on the AI remembering instructions. Adjacent to the query, but it never addresses instructions going stale, which is the failure Q24 names."
+    },
+    {
+      "query": 24,
+      "id": 416,
+      "grade": 1,
+      "why": "Piyaz keeps a live project context map current as work moves. The judge's own reason concedes it is not instruction-staleness focused, which is the query."
+    },
+    {
+      "query": 0,
+      "id": 430,
+      "grade": 1,
+      "why": "claude-behavior-layer persists skills, agents and hooks across sessions and archives each session on /9-stop. That is the convention-and-config class the Q0 note puts at 1: knowledge that persists, not memory the agent recalls."
+    },
+    {
+      "query": 0,
+      "id": 440,
+      "grade": 1,
+      "why": "BlitzOS keeps the session alive across machine churn. Continuity of a running session, not memory that survives its end."
+    },
+    {
+      "query": 0,
+      "id": 467,
+      "grade": 1,
+      "why": "Buzz gives agents six months of searchable history on a team relay. A shared comms archive, not per-agent memory across coding sessions."
+    },
+    {
+      "query": 1,
+      "id": 415,
+      "grade": 1,
+      "why": "qm lists sandbox as one swappable substrate behind an interface. It names the word and says nothing about isolating untrusted code."
+    },
+    {
+      "query": 1,
+      "id": 472,
+      "grade": 2,
+      "why": "The CRM's sandbox has no network and no database, egress is deny-all, and web_fetch is deliberately kept outside it. That is the isolation property Q1 asks for, argued as a design stance rather than mentioned in passing — the same shape as Q17 id 430, where a mechanism inside a broader project earned 2. Not the answer, because the product is a CRM."
+    },
+    {
+      "query": 1,
+      "id": 485,
+      "grade": 1,
+      "why": "Conductor's sandbox is a cloud dev environment and the worry raised is file access, not executing untrusted code under isolation. The Q1 note already refuses crabbox for assuming a trusted operator; this is the same gap."
+    },
+    {
+      "query": 2,
+      "id": 425,
+      "grade": 1,
+      "why": "NeatContext extracts knowledge after the session. Nothing bounds what a tool returns while the window is filling."
+    },
+    {
+      "query": 2,
+      "id": 427,
+      "grade": 1,
+      "why": "Hindsight recalls stored memories. Tool output is not what it manages."
+    },
+    {
+      "query": 2,
+      "id": 453,
+      "grade": 1,
+      "why": "Response-conciseness and over-verification advice. The Q2 note puts token-cost framing at 1 by name."
+    },
+    {
+      "query": 2,
+      "id": 486,
+      "grade": 1,
+      "why": "Being conscious of the context window you spend is the general context-bloat framing the Q2 note puts at 1."
+    },
+    {
+      "query": 5,
+      "id": 474,
+      "grade": 1,
+      "why": "Onyx is a self-hosted platform that talks to any LLM; the passages never put a model on your hardware. The same distractor class as the rented-GPU items the Q5 note excludes."
+    },
+    {
+      "query": 6,
+      "id": 424,
+      "grade": 1,
+      "why": "Hybrid scoring for its own memory retrieval. It builds retrieval, it does not measure it."
+    },
+    {
+      "query": 6,
+      "id": 427,
+      "grade": 1,
+      "why": "Four recall strategies described, none of them evaluated."
+    },
+    {
+      "query": 6,
+      "id": 474,
+      "grade": 1,
+      "why": "Names a deep-research benchmark and a leaderboard placement. No method for judging retrieval quality."
+    },
+    {
+      "query": 6,
+      "id": 475,
+      "grade": 1,
+      "why": "Local FTS5 retrieval returning cited chunks. Retrieval without evaluation."
+    },
+    {
+      "query": 6,
+      "id": 485,
+      "grade": 1,
+      "why": "Score a version of a function, extract the score with a separate judge file — real eval methodology, but for code auto-research, not for retrieval."
+    },
+    {
+      "query": 7,
+      "id": 467,
+      "grade": 1,
+      "why": "Buzz gives an agent its own keys and channel memberships on a chat relay. Addressable identity, but not mail, and nothing here sends."
+    },
+    {
+      "query": 7,
+      "id": 472,
+      "grade": 1,
+      "why": "The CRM agent reads threads that were ingested for it. No mailbox of its own and no send path."
+    },
+    {
+      "query": 8,
+      "id": 419,
+      "grade": 1,
+      "why": "Nerve surfaces plans and approvals in a harness UI. A plan you can watch stream is not a spec that governs what gets implemented."
+    },
+    {
+      "query": 8,
+      "id": 454,
+      "grade": 1,
+      "why": "A CLAUDE.md behavioural config for Opus 5. Configuration, not a workflow."
+    },
+    {
+      "query": 8,
+      "id": 455,
+      "grade": 1,
+      "why": "System prompts and where to place them. Same call as its sibling 454."
+    },
+    {
+      "query": 10,
+      "id": 434,
+      "grade": 1,
+      "why": "Reads credentials from a password store in passing while doing research. It touches pass(1); it is not a password manager."
+    },
+    {
+      "query": 12,
+      "id": 480,
+      "grade": 1,
+      "why": "Ships an MCP server for its own database tools. The query wants the reverse direction — your existing scripts becoming tools."
+    },
+    {
+      "query": 13,
+      "id": 424,
+      "grade": 1,
+      "why": "Shows client config and transports for running its MCP server. Running one is not testing or debugging one you are writing."
+    },
+    {
+      "query": 15,
+      "id": 432,
+      "grade": 2,
+      "why": "gtmskills is a browsable library of reusable prompts with no runner, which is the grade-2 case the Q15 note names outright (as with item 297). The skills are the product and you read them, unlike 437 where the units are installable agents. Flagged: this is the recurring skills-tooling class you called a 1 in every query it enters, and Q15 is the one query whose own rubric grants it a 2 — if the class rule wins, this goes back to 1."
+    },
+    {
+      "query": 15,
+      "id": 449,
+      "grade": 1,
+      "why": "One person's Pi config, extensions and themes. Not a library anyone else browses for prompts."
+    },
+    {
+      "query": 16,
+      "id": 425,
+      "grade": 1,
+      "why": "Saves knowledge out of conversations. It never reads the repo and never writes CLAUDE.md."
+    },
+    {
+      "query": 16,
+      "id": 428,
+      "grade": 1,
+      "why": "icm-architect restructures an existing repo into a folder architecture. Right target, wrong artifact."
+    },
+    {
+      "query": 16,
+      "id": 430,
+      "grade": 1,
+      "why": "Drops a fixed CLAUDE.md into an existing repo as one of six paths. Generation is the query's verb and copying a template is not it. The closest call in this block: hedgehog kept a 2 for scaffolding the file at the wrong project stage, so the axes are mirrored — but the verb matters more than the stage."
+    },
+    {
+      "query": 16,
+      "id": 454,
+      "grade": 1,
+      "why": "Explains where CLAUDE.md goes and ships one ready-made. Same call as sibling 455, already at 1."
+    },
+    {
+      "query": 16,
+      "id": 482,
+      "grade": 1,
+      "why": "gitreverse reads repo metadata, root tree and README and emits a prompt — the mechanism a generator would use, aimed at recreating the repo rather than instructing an agent working in it."
+    },
+    {
+      "query": 17,
+      "id": 415,
+      "grade": 1,
+      "why": "A multiplayer harness with concurrent sessions, silent on two agents touching one repo. Piyaz was cut to 1 for exactly this gap."
+    },
+    {
+      "query": 17,
+      "id": 421,
+      "grade": 1,
+      "why": "Enforces stack and build order. Nothing about concurrency."
+    },
+    {
+      "query": 17,
+      "id": 453,
+      "grade": 1,
+      "why": "Subagent delegation inside one session, with caps on how many. Not several agents against one working tree."
+    },
+    {
+      "query": 17,
+      "id": 467,
+      "grade": 1,
+      "why": "Per-agent identity and audit trail on a relay. Isolation of credentials, not of the repo."
+    },
+    {
+      "query": 17,
+      "id": 487,
+      "grade": 1,
+      "why": "The anecdote happens on a git worktree and the fix is a microVM, but the video is one agent going rogue, never several running at once."
+    },
+    {
+      "query": 18,
+      "id": 447,
+      "grade": 1,
+      "why": "Generates video and UGC spots from its own face library. No article goes in."
+    },
+    {
+      "query": 20,
+      "id": 472,
+      "grade": 2,
+      "why": "The research agent does LinkedIn lookups and brand enrichment, which feeds go-to-market without running it. A marketing capability packaged for an agent, which the Q20 rule puts at 2 — the same line that put 432 at 1 for being GTM-adjacent rather than GTM-operating. Your call, against the judge's pre-fill of 3."
+    },
+    {
+      "query": 20,
+      "id": 435,
+      "grade": 1,
+      "why": "Copywriting only, which the Q20 rule puts at 1 as a single craft."
+    },
+    {
+      "query": 20,
+      "id": 437,
+      "grade": 1,
+      "why": "A catalogue of business agents; the passages show support, customer success and product, none of them GTM. And a catalogue is not an agent that runs the function — the same call as 432."
+    },
+    {
+      "query": 20,
+      "id": 458,
+      "grade": 1,
+      "why": "A personal GTD assistant tracking invoices and promises. Not marketing operations."
+    },
+    {
+      "query": 20,
+      "id": 459,
+      "grade": 1,
+      "why": "A founder kit that will wire itself to an email platform among other tools. General business SOPs, not a marketing capability."
+    },
+    {
+      "query": 22,
+      "id": 443,
+      "grade": 1,
+      "why": "Native Mac, organises folders. Nothing here edits markdown."
+    },
+    {
+      "query": 22,
+      "id": 466,
+      "grade": 1,
+      "why": "A cross-device local-first workbench. Neither native macOS nor markdown-specific."
+    },
+    {
+      "query": 22,
+      "id": 470,
+      "grade": 1,
+      "why": "Edits markdown, in a browser. Native is the constraint this query exists to discriminate on, and the Ghost items fail the other half — promote either side and four near-misses all become answers."
+    },
+    {
+      "query": 22,
+      "id": 471,
+      "grade": 1,
+      "why": "The same product as 470 from its own site. Same call."
+    },
+    {
+      "query": 22,
+      "id": 475,
+      "grade": 1,
+      "why": "Native macOS, and an AI launcher. The mirror image of the sitepins miss."
+    },
+    {
+      "query": 22,
+      "id": 476,
+      "grade": 1,
+      "why": "The same product as 475 from its repo. Same call."
+    },
+    {
+      "query": 22,
+      "id": 481,
+      "grade": 1,
+      "why": "Native macOS and every place is a plain markdown file, but the app is a map and the agent writes those files, not you."
+    },
+    {
+      "query": 23,
+      "id": 416,
+      "grade": 1,
+      "why": "A review gate that reads the diff after the fact. It can catch a needless rewrite, but nothing keeps the agent inside scope in the first place."
+    },
+    {
+      "query": 24,
+      "id": 412,
+      "grade": 1,
+      "why": "The loop re-reads its standing instructions every pass and respawns for fresh context, so no stale copy survives in the window. The failure Q24 names is the instructions themselves going out of date, which nothing here detects. Hedgehog and Piyaz were both cut to 1 on this same line."
+    },
+    {
+      "query": 24,
+      "id": 431,
+      "grade": 1,
+      "why": "Surfaces doubt when a plan admits materially different readings. Ambiguity, not staleness."
+    },
+    {
+      "query": 24,
+      "id": 459,
+      "grade": 1,
+      "why": "Captures SOPs at close-out. Writing instructions down is not noticing they have expired."
+    },
+    {
+      "query": 24,
+      "id": 487,
+      "grade": 1,
+      "why": "Sandboxing an agent that goes rogue. A different failure entirely."
+    },
+    {
+      "query": 25,
+      "id": 435,
+      "grade": 1,
+      "why": "Interviews for real facts before writing, which is the no-fabrication half — but it writes marketing copy, and the query names job applications."
+    },
+    {
+      "query": 27,
+      "id": 464,
+      "grade": 1,
+      "why": "shadcn/ui appears in a stack table. Not a component set for building agent interfaces."
+    },
+    {
+      "query": 28,
+      "id": 420,
+      "grade": 1,
+      "why": "Sandboxed VMs per agent, with no microVM detail and no boot figures."
+    },
+    {
+      "query": 28,
+      "id": 440,
+      "grade": 1,
+      "why": "Cloud machines for agents, nothing about how fast one comes up."
+    },
+    {
+      "query": 28,
+      "id": 472,
+      "grade": 1,
+      "why": "A sandbox egress stance. Not a VM boot story."
+    },
+    {
+      "query": 28,
+      "id": 485,
+      "grade": 1,
+      "why": "The agent runs in a sandbox; the video never asks what starting one costs."
+    },
+    {
+      "query": 28,
+      "id": 487,
+      "grade": 2,
+      "why": "This is the corpus item about microVMs for coding-agent sandboxes: Docker Sandbox moving off containers, running its own engine inside the micro VM, no host access. The judge conceded the subject and demoted on the missing half — no cold-boot figures. Q28 is jargon aimed at a crowded sandbox neighbourhood, and this is the item the jargon picks out; 420, 440, 472 and 485 are the crowd."
+    },
+    {
+      "query": 2,
+      "id": 431,
+      "grade": 0,
+      "why": "Delegating implementation to Codex does keep that transcript out of the main window, but the skill argues it for plan fidelity and never mentions the context window or what a tool returns. The Q2 note reserves 3 for a mechanism aimed at tool output; this one is aimed at vague steps producing vague code."
+    },
+    {
+      "query": 5,
+      "id": 466,
+      "grade": 0,
+      "why": "Local-first, offline, peer-to-peer, your own devices — every word the query uses, about data sync rather than inference. FTS 4 on pure keyword overlap, and the same distractor class the Q5 note already excludes."
+    },
+    {
+      "query": 5,
+      "id": 481,
+      "grade": 0,
+      "why": "The map runs offline from a region pack on your disk, but the AI it ships is Claude Code skills. Routing and geocoding run locally; no model does."
+    },
+    {
+      "query": 7,
+      "id": 458,
+      "grade": 0,
+      "why": "A GTD assistant over SQLite. 'Sending my invoices' is a hypothetical about the future, not a mailbox the agent holds."
+    },
+    {
+      "query": 7,
+      "id": 464,
+      "grade": 0,
+      "why": "A Linear alternative where agents work alongside teams. Nothing here sends or receives mail."
+    },
+    {
+      "query": 8,
+      "id": 434,
+      "grade": 0,
+      "why": "A research skill that emits structured output for agents and workflows. Keyword overlap on 'agents' and 'workflow'; no spec, no plan, nothing driving implementation."
+    },
+    {
+      "query": 8,
+      "id": 436,
+      "grade": 0,
+      "why": "A discovery hub and package manager for agent tooling. It catalogues the tools a workflow might use and describes no workflow."
+    },
+    {
+      "query": 9,
+      "id": 435,
+      "grade": 1,
+      "why": "RESCUED. The skill's whole premise is copy that does not read as generic AI output — human tone, a named reader, mechanisms instead of big claims, an interview for ICP and category before it writes a word. That is the anti-generic argument applied to prose rather than UI, which is exactly what the Q9 note puts at 1 for item 294. The judge's 0 missed a class you had already priced."
+    },
+    {
+      "query": 10,
+      "id": 427,
+      "grade": 0,
+      "why": "An agent memory system. Nothing to do with secrets, GPG, or a password store."
+    },
+    {
+      "query": 10,
+      "id": 449,
+      "grade": 0,
+      "why": "One person's coding-agent config and sync tooling. No credentials in sight."
+    },
+    {
+      "query": 11,
+      "id": 470,
+      "grade": 0,
+      "why": "A Git CMS that edits sites. It runs in a browser; it does not drive one."
+    },
+    {
+      "query": 12,
+      "id": 434,
+      "grade": 0,
+      "why": "A python script you run from the shell, in a document that also says 'MCP servers' — which is what put it at semantic rank 2. It searches for MCP servers; it does not turn anything into one."
+    },
+    {
+      "query": 12,
+      "id": 454,
+      "grade": 0,
+      "why": "A CLAUDE.md that mentions MCP tool usage among its execution defaults. Configuration, not conversion."
+    },
+    {
+      "query": 12,
+      "id": 463,
+      "grade": 0,
+      "why": "Semantic rank 1 on a bare '## MCP Tools' heading. It exposes its own workspace as MCP tools and offers nothing for wrapping your scripts."
+    },
+    {
+      "query": 13,
+      "id": 434,
+      "grade": 0,
+      "why": "Semantic rank 1 again on the same 'search my library for MCP servers' line. Finding servers is not debugging one."
+    },
+    {
+      "query": 13,
+      "id": 463,
+      "grade": 0,
+      "why": "The same '## MCP Tools' heading, ranked 2 this time. A server to install, with nothing about testing one you are writing."
+    },
+    {
+      "query": 13,
+      "id": 480,
+      "grade": 1,
+      "why": "RESCUED to 1 for consistency, not because it answers: `tabularis --mcp` plus one-click client config is the same shape as mnemosyne at Q13 id 424, which the judge itself put at 1 for showing how to run a server rather than test one. Two documents of one kind should not straddle the 0/1 line."
+    },
+    {
+      "query": 15,
+      "id": 425,
+      "grade": 0,
+      "why": "Reusable and shareable, but the units are extracted knowledge contexts and you make them in a desktop app. Neither a prompt library nor a command line."
+    },
+    {
+      "query": 18,
+      "id": 458,
+      "grade": 0,
+      "why": "Ranked on Medium's own Speechify 'Text to speech' link — page furniture that survived extraction, not content. The article is about a GTD assistant."
+    },
+    {
+      "query": 19,
+      "id": 458,
+      "grade": 0,
+      "why": "The same Speechify boilerplate, this time at semantic rank 2 — the strongest false hit in the block, and it comes entirely from Medium's page chrome. No voice, no synthesis, no cloning."
+    },
+    {
+      "query": 19,
+      "id": 474,
+      "grade": 0,
+      "why": "An AI chat platform. Nothing about speech in either direction."
+    },
+    {
+      "query": 21,
+      "id": 416,
+      "grade": 0,
+      "why": "An agentic workspace ranked 9th for a build-tool query, which is the precision failure the Q21 note anticipates in a corpus with almost no build tooling."
+    },
+    {
+      "query": 21,
+      "id": 453,
+      "grade": 0,
+      "why": "Prompting guidance for a model. No build, no tasks, no Make."
+    },
+    {
+      "query": 22,
+      "id": 426,
+      "grade": 0,
+      "why": "Lists macOS among four platforms and says it replaces messy markdown plans with a graph. Both query terms present, in a distributed issue tracker."
+    },
+    {
+      "query": 22,
+      "id": 438,
+      "grade": 0,
+      "why": "A web workspace of pages and databases with an inline cell editor. Not native, not markdown."
+    },
+    {
+      "query": 22,
+      "id": 463,
+      "grade": 0,
+      "why": "The same product as 438 from its repo. Same call."
+    },
+    {
+      "query": 23,
+      "id": 477,
+      "grade": 0,
+      "why": "A marketplace page whose listings include a memory package promising corrections stick. A directory entry about a third thing is not an answer to an agent that rewrites working code."
+    },
+    {
+      "query": 24,
+      "id": 453,
+      "grade": 1,
+      "why": "RESCUED. The guide tells you to delete verification instructions written for earlier models because Opus 5 now over-verifies on them — standing instructions that have gone out of date and still get followed, which is the query's failure named directly. The axis is model version rather than project drift, and the fix is manual rather than detected, so it touches the subject without answering it."
+    },
+    {
+      "query": 24,
+      "id": 472,
+      "grade": 0,
+      "why": "Architectural discipline about where intelligence may live. Not about instructions ageing."
+    },
+    {
+      "query": 24,
+      "id": 473,
+      "grade": 0,
+      "why": "Declarative setup for a development machine. Hedgehog made the stronger version of this argument and was still cut to 1; this one is further away again."
+    },
+    {
+      "query": 25,
+      "id": 434,
+      "grade": 0,
+      "why": "A grounded research skill, so it shares the no-fabrication half with 435 which sits at 1 — but 435 at least writes persuasive prose about you, and this writes topic briefs. The surfaced passages are install instructions and JSON output, carrying neither half of the query."
+    },
+    {
+      "query": 27,
+      "id": 472,
+      "grade": 0,
+      "why": "Its stack table names eve, Vercel Gateway and Vercel Sandbox, and never shadcn. 464 earned its 1 by listing shadcn/ui outright; this does not."
+    },
+    {
+      "query": 27,
+      "id": 478,
+      "grade": 0,
+      "why": "A workspace for building agents by chatting with them. No component library, and no UI toolkit anyone could reuse."
+    },
+    {
+      "query": 28,
+      "id": 430,
+      "grade": 0,
+      "why": "FTS 9 on the word 'boot' — a double-clickable boot button that opens a workspace. A clean keyword collision with nothing behind it."
+    },
+    {
+      "query": 29,
+      "id": 435,
+      "grade": 0,
+      "why": "Craft advice for marketing copy. Essays about doing the work well are not an essay about doing great work."
+    }
+  ]
+}

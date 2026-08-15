@@ -1,0 +1,31 @@
+{
+  "name": "clipbase",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal knowledge-base ingestion tool backed by Turso — web clips, Raindrop, PDFs in; FTS search out; agent-organized later.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "clipbase": "dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "cli": "tsx src/index.ts",
+    "build": "tsc",
+    "prepare": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.0",
+    "commander": "^15.0.0",
+    "unpdf": "^1.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
