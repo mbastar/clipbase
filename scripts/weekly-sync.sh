@@ -14,6 +14,11 @@
 # --sync-only is not a dry run and is deliberately not called one: sync-all has
 # already pulled, fetched and stored by the time it takes effect. It stops before
 # the three passes that spend — nothing more.
+#
+# Exit status is a signal to somebody, not decoration. Anything non-zero that
+# stopped the run short prints a stamped RUN FAILED line and raises a desktop
+# notice, because launchd will not. A run that finished every pass but could not
+# reach a collection is reported and deliberately not alarmed.
 
 set -eu
 
@@ -24,6 +29,53 @@ cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 CLIPBASE="${CLIPBASE_BIN:-clipbase}"
 
 say() { printf '%s %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$*"; }
+
+# Best-effort desktop notice. A run must never fail because it could not report
+# that it failed, so every outcome here is swallowed. osascript needs a GUI
+# session, which the `gui/$(id -u)` bootstrap in the plist gives it.
+notify() {
+  osascript -e "display notification \"$2\" with title \"$1\"" >/dev/null 2>&1 || true
+}
+
+# How far the run got. Read by on_exit, because a partial sync and a dead run
+# both leave a non-zero status and only one of them is a problem: an unreachable
+# collection still ran all four passes over everything it did pull, while a run
+# that dies before `embed` leaves items an agent can find and cannot describe.
+# Set to `complete` at every legitimate exit, including the early ones.
+STAGE=preflight
+
+# launchd does not notify on a non-zero exit, so until now a dead run left no
+# trace but one unstamped line in this log, between two stamped ones. That is
+# not hypothetical: the 2026-08-14 run died at `classify` on a transient
+# `error: fetch failed`, skipping all three spending passes, and 21 freshly
+# synced items sat undescribed for six hours before anyone looked. `set -eu`
+# behaved correctly; nothing was listening. This is the listener.
+#
+# It also owns the SYNC_JSON cleanup, because a second `trap ... EXIT` would
+# silently replace the first rather than run alongside it.
+on_exit() {
+  code=$?
+  if [ -n "${SYNC_JSON:-}" ]; then
+    rm -f "$SYNC_JSON"
+  fi
+
+  if [ "$code" -eq 0 ]; then
+    exit 0
+  fi
+
+  if [ "$STAGE" = complete ]; then
+    # Every pass that was going to run did. The status is sync-all reporting a
+    # collection it could not reach — a finding, not a dead run. Say so plainly
+    # rather than crying wolf, or the real alarm stops meaning anything.
+    say "run complete, but ${FAILED:-?} collection(s) unreachable (exit $code)"
+    exit "$code"
+  fi
+
+  say "RUN FAILED at $STAGE (exit $code) — not all passes ran; check: clipbase status"
+  notify "ClipBase sync failed" "died at $STAGE (exit $code) — run clipbase status"
+  exit "$code"
+}
+trap on_exit EXIT
 
 # Under launchd there is no shell profile and no fnm hook, so the PATH a
 # terminal has is not the PATH this gets. `defuddle` and `firecrawl` are npm
@@ -40,6 +92,10 @@ need() {
 }
 need "$CLIPBASE"
 need defuddle
+# `node` reads sync-all's JSON below. Without it that read fails and the run
+# reports "sync-all returned no usable output", blaming the sync for a missing
+# interpreter — so name the real cause here instead.
+need node
 # claude backs `enrich`; only the spending path needs it.
 [ "$SYNC_ONLY" -eq 1 ] || need claude
 
@@ -50,9 +106,9 @@ for optional in yt-dlp firecrawl; do
   command -v "$optional" >/dev/null 2>&1 || say "warning: $optional not on PATH — extraction will fall back"
 done
 
+STAGE=sync
 say "sync-all starting"
 SYNC_JSON="$(mktemp)"
-trap 'rm -f "$SYNC_JSON"' EXIT
 
 # sync-all exits non-zero when any collection was unreachable. That is a partial
 # sync, not a failed one: the collections that ran keep their advanced cursors.
@@ -88,6 +144,7 @@ say "sync-all: $NEW new, $FAILED collection(s) unreachable (exit $SYNC_RC)"
 # Read-only and unbilled. It exits non-zero on a gap because a scheduled caller
 # needs some way to escalate one, but a gap is a finding and not a failed sync —
 # so swallow the code here and let the run continue to the passes.
+STAGE=reconcile
 say "reconcile (read-only, no spend)"
 # 0 = all present, 2 = a gap was found, 1 = the check itself failed. The old
 # `|| true` swallowed all three, which discarded the one distinction that
@@ -107,23 +164,29 @@ esac
 # and --apply gates the writes rather than the calls, so a no-op week must not
 # reach it at all.
 if [ "$NEW" -eq 0 ]; then
+  STAGE=complete
   say "nothing new — skipping classify/enrich/embed"
   exit "$SYNC_RC"
 fi
 
 if [ "$SYNC_ONLY" -eq 1 ]; then
+  STAGE=complete
   say "sync-only: $NEW item(s) stored, stopping before classify/enrich/embed"
   exit "$SYNC_RC"
 fi
 
+STAGE=classify
 say "classify (free, deterministic)"
 "$CLIPBASE" classify --apply
 
+STAGE=enrich
 say "enrich (spends model calls)"
 "$CLIPBASE" enrich --apply
 
+STAGE=embed
 say "embed (spends OpenRouter credits)"
 "$CLIPBASE" embed --apply
 
+STAGE=complete
 say "done: $NEW item(s) fully processed"
 exit "$SYNC_RC"
