@@ -36,6 +36,54 @@ graded gold, and the review ledger (`eval/reviewed.json`) carrying one
 recorded reason per grading decision — so the numbers the docs quote are
 checkable against the artifacts that produced them, not just asserted.
 
+## Making it yours
+
+The pipeline transfers; the corpus, the taxonomy and the schedule are one
+operator's. What that means concretely, in the order you will hit it:
+
+**Works as-is — nothing to edit.**
+
+- **Credentials.** `cp .env.example .env` and fill in what it names: your own
+  Turso database (`turso db create <name>`), a Raindrop test token, an
+  OpenRouter key for embeddings. `migrate` builds the schema.
+- **Tools.** `defuddle` and `firecrawl` (npm globals) for web extraction,
+  `yt-dlp` optionally for YouTube transcripts, and an authenticated `claude`
+  CLI for `enrich` and `eval-judge`. Setup below says what happens when each
+  is missing.
+- **The launchers.** `scripts/install-bin.sh` derives the repo path itself and
+  writes both `clipbase` and `clipbase-sync` to `~/.local/bin`.
+- **The sync script.** `scripts/weekly-sync.sh` finds the repo relative to
+  itself and honours `CLIPBASE_BIN`; nothing in it is machine-specific.
+- **Which collections sync.** Not a config file: run
+  `sync-raindrop --collection <name>` once per collection you mean to track,
+  and `sync-all` covers it from then on.
+
+**Templates — edit before use.**
+
+- **`scripts/com.example.clipbase.sync.plist`** — the nightly schedule.
+  Replace every `YOUR-USERNAME` path, point its `PATH` entry at your node
+  install, rename the label and the file to your own reverse-domain, and pick
+  an hour after whatever files bookmarks into your collections. The file's
+  own comments walk each field.
+- **The topic taxonomy** — `TOPICS` in `src/commands/enrich.ts`, hardcoded on
+  purpose and tuned to this corpus (AI agents, no-code automation). Replace
+  the topics with your own subjects; `docs/topic-taxonomy.md` records the
+  rules that keep a taxonomy assignable.
+- **`skills/clipbase/SKILL.md`** — the agent-facing contract. The command
+  surface transfers, but the frontmatter `description` names this corpus's
+  subjects; rewrite it for what you save, or agents will not reach for it.
+
+**Records — this corpus's, not yours.**
+
+- **`eval/`** — the labelled queries and graded gold reference this corpus's
+  item ids, so against your database the numbers would be meaningless. Start
+  a fresh `eval/queries.jsonl` and grow your own gold with `eval-pool` and
+  `eval-judge` (*Measuring retrieval*, below).
+- **The upstream triage.** Bookmarks reach the tracked collections here via a
+  separate cloud routine that files the Raindrop Inbox nightly; it is not in
+  this repo. File bookmarks into collections by hand, or schedule your own —
+  the one requirement is that filing happens before the sync hour.
+
 ## Setup
 
 ```bash
@@ -89,6 +137,15 @@ npm run --silent cli -- recanonicalize            # dry run; --apply to write
 npm run --silent cli -- rechunk                   # dry run; --apply to write
 ```
 
+Every read command takes `--json` for clean machine-readable output (agents are a first-class consumer). Progress/log output always goes to stderr. Nonzero exit code with a one-line error on failure.
+
+`--silent` is required when parsing `--json`: without it npm prints a `> clipbase@0.1.0 cli` banner to stdout ahead of the payload, which is not valid JSON. Agents can also skip npm entirely — `npm run build` once, then invoke `dist/index.js` (or the `clipbase` bin) directly.
+
+## Ingestion
+
+The happy path is one command in Usage above. These are the two places it
+needed judgement.
+
 ### Repairing a bad extraction
 
 Ingest stores a document once and, by default, never touches it again — a
@@ -136,6 +193,11 @@ PATH, or no English captions, is a fall-through too — never a hard failure.
 Auto-captions are stored as they arrive, unpunctuated and without headings, so
 a transcript chunks into more and smaller passages than prose of the same
 length. Rationale in `docs/data-model.md` → *The transcript path*.
+
+## Staying current
+
+Two commands: one that catches the corpus up, one that says whether an answer
+can be trusted.
 
 ### Keeping the corpus current
 
@@ -222,7 +284,7 @@ interrupted. And **`stalest`** catches what a headline age hides: the run above
 synced twelve collections today while one stayed a week behind, which is a
 partial sync wearing a clean face.
 
-### Organizing
+## Organizing
 
 ```bash
 npm run --silent cli -- classify                    # dry run; --apply to write form:* tags
@@ -263,6 +325,11 @@ merges rows that collapse onto the same one. Run it after changing
 `src/canonicalize.ts`, otherwise stored URLs keep the old shape and re-ingesting
 a known page duplicates it. It deletes rows when merging, so it dry-runs by
 default.
+
+## Search beyond keywords
+
+Keyword FTS is the default ranker. The other two, and when they earn their
+cost.
 
 ### Semantic search
 
@@ -306,6 +373,11 @@ and the drop is **not** readable as a regression: the gold was pooled against
 the smaller corpus, so the 109 items added since are scored as irrelevant by
 construction. The trade, the constants, and what to reach for when it stops
 working are in `docs/retrieval.md`.
+
+## Measuring retrieval
+
+The harness the numbers in `docs/` come from, and how its gold stays honest as
+the corpus grows.
 
 ### Evaluating retrieval
 
@@ -407,6 +479,10 @@ content, so chunks otherwise keep their original shape forever. It rewrites only
 the items whose chunks actually differ, and restamps `chunking_version` on the
 rest, so after an `--apply` the whole corpus is at the current version.
 
+## Agents and the nightly run
+
+The two consumers that are not a human at a terminal.
+
 ### Using it from an agent
 
 `skills/clipbase/SKILL.md` is the agent-facing contract — which ranker to reach
@@ -484,10 +560,6 @@ One consequence worth knowing: sync pages by Raindrop's `created`, and triage
 moves items without touching it. An item that lingers in the Inbox past a cursor
 advance is paged over permanently — no error, no failure count. Daily-on-daily
 narrows that window to hours but does not close it.
-
-Every read command takes `--json` for clean machine-readable output (agents are a first-class consumer). Progress/log output always goes to stderr. Nonzero exit code with a one-line error on failure.
-
-`--silent` is required when parsing `--json`: without it npm prints a `> clipbase@0.1.0 cli` banner to stdout ahead of the payload, which is not valid JSON. Agents can also skip npm entirely — `npm run build` once, then invoke `dist/index.js` (or the `clipbase` bin) directly.
 
 ## Design principles
 
