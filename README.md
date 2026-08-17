@@ -34,7 +34,9 @@ from, unedited since.
 `eval/` ships alongside: the labelled queries (`eval/queries.jsonl`), their
 graded gold, and the review ledger (`eval/reviewed.json`) carrying one
 recorded reason per grading decision — so the numbers the docs quote are
-checkable against the artifacts that produced them, not just asserted.
+checkable against the artifacts that produced them, not just asserted. The
+working sheets and judge-run logs behind those ledgers stay in the private
+repo — they quote stored page content wholesale; what ships is the decisions.
 
 ## Making it yours
 
@@ -77,8 +79,9 @@ operator's. What that means concretely, in the order you will hit it:
 
 - **`eval/`** — the labelled queries and graded gold reference this corpus's
   item ids, so against your database the numbers would be meaningless. Start
-  a fresh `eval/queries.jsonl` and grow your own gold with `eval-pool` and
-  `eval-judge` (*Measuring retrieval*, below).
+  a fresh `eval/queries.jsonl` — `eval/queries.example.jsonl` shows the
+  format — and grow your own gold with `eval-pool` and `eval-judge`
+  (*Measuring retrieval*, below).
 - **The upstream triage.** Bookmarks reach the tracked collections here via a
   separate cloud routine that files the Raindrop Inbox nightly; it is not in
   this repo. File bookmarks into collections by hand, or schedule your own —
